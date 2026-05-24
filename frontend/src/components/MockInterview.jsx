@@ -1,6 +1,5 @@
 import { useState } from 'react';
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+import { apiFetch } from '../api';
 
 function MockInterview({ resumeText, jdText }) {
   const [isStarted, setIsStarted] = useState(false);
@@ -13,7 +12,7 @@ function MockInterview({ resumeText, jdText }) {
   const generateQuestion = async () => {
     setIsGeneratingQuestion(true);
     try {
-      const res = await fetch(`${API_BASE}/mock-question`, {
+      const res = await apiFetch('/mock-question', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -53,7 +52,7 @@ function MockInterview({ resumeText, jdText }) {
     setIsEvaluating(true);
     
     try {
-      const res = await fetch(`${API_BASE}/mock-feedback`, {
+      const res = await apiFetch('/mock-feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -1,11 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import AnalysisCard from './components/AnalysisCard';
 import ChatBox from './components/ChatBox';
 import MockInterview from './components/MockInterview';
+import { apiFetch } from './api';
 import './App.css'; // Optional if anything remains here, mostly index.css handles it.
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 function App() {
   const [jd, setJd] = useState('');
@@ -33,7 +32,7 @@ function App() {
     formData.append('file', selected);
     
     try {
-      const res = await fetch(`${API_BASE}/extract-pdf`, {
+      const res = await apiFetch('/extract-pdf', {
         method: 'POST',
         body: formData,
       });
@@ -57,7 +56,7 @@ function App() {
     setAnalysisRaw(null);
     setActiveTab('analysis'); // Switch to analysis tab when generating
     try {
-      const res = await fetch(`${API_BASE}/analyze`, {
+      const res = await apiFetch('/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ resume_text: resumeText, jd_text: jd }),
@@ -91,7 +90,7 @@ function App() {
         chat_history: chatHistory.filter(m => m.role !== 'system')
       };
       
-      const res = await fetch(`${API_BASE}/chat`, {
+      const res = await apiFetch('/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

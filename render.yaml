@@ -13,4 +13,5 @@ services:
         value: llama-3.1-8b-instant
       - key: ALLOWED_ORIGINS
         value: https://your-frontend-domain.vercel.app
-
+      - key: USE_TRANSFORMER_SIMILARITY
+        value: false
