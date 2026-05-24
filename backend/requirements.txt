@@ -4,6 +4,4 @@ python-multipart
 groq
 PyPDF2
 python-dotenv
-spacy
-sentence-transformers
 scikit-learn
